@@ -3828,7 +3828,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _HeaderComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HeaderComponent.vue */ "./resources/js/components/HeaderComponent.vue");
 /* harmony import */ var _SearchComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SearchComponent.vue */ "./resources/js/components/SearchComponent.vue");
 /* harmony import */ var _MovieComponent_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MovieComponent.vue */ "./resources/js/components/MovieComponent.vue");
-Object(function webpackMissingModule() { var e = new Error("Cannot find module '../movieapi/movie-api'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
+/* harmony import */ var _movieapi_movie_api__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../movieapi/movie-api */ "./resources/js/movieapi/movie-api.js");
 //
 //
 //
@@ -3851,7 +3851,7 @@ Object(function webpackMissingModule() { var e = new Error("Cannot find module '
     Movie: _MovieComponent_vue__WEBPACK_IMPORTED_MODULE_2__.default
   },
   setup: function setup() {
-    var state = Object(function webpackMissingModule() { var e = new Error("Cannot find module '../movieapi/movie-api'"); e.code = 'MODULE_NOT_FOUND'; throw e; }())();
+    var state = (0,_movieapi_movie_api__WEBPACK_IMPORTED_MODULE_3__.useMovieApi)();
     return {
       state: state,
       handleSearch: function handleSearch(searchTerm) {
@@ -4074,6 +4074,40 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/movieapi/movie-api.js":
+/*!********************************************!*\
+  !*** ./resources/js/movieapi/movie-api.js ***!
+  \********************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "useMovieApi": () => (/* binding */ useMovieApi)
+/* harmony export */ });
+/* harmony import */ var _vue_composition_api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @vue/composition-api */ "./node_modules/@vue/composition-api/dist/vue-composition-api.esm.js");
+
+var API_KEY = '######';
+var useMovieApi = function useMovieApi() {
+  var state = (0,_vue_composition_api__WEBPACK_IMPORTED_MODULE_0__.reactive)({
+    search: 'Lord of the rings',
+    loading: true,
+    movies: []
+  });
+  (0,_vue_composition_api__WEBPACK_IMPORTED_MODULE_0__.watch)(function () {
+    var MOVIE_API_URL = "https://www.omdbapi.com/?s=".concat(state.search, "&apikey=").concat(API_KEY);
+    fetch(MOVIE_API_URL).then(function (response) {
+      return response.json();
+    }).then(function (jsonResponse) {
+      state.movies = jsonResponse.Search;
+      state.loading = false;
+    });
+  });
+  return state;
+};
 
 /***/ }),
 
