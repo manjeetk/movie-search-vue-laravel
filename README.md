@@ -23,8 +23,8 @@
 - **npm run dev**
 - **npm run watch**
 
-## Update you API key from the [OMDb API](https://www.omdbapi.com/) in /resources/js/components/movieapi/movie-api.js file
-
+## Update you API key from the [OMDb API](https://www.omdbapi.com/) 
+Add API Key in the /resources/js/components/movieapi/movie-api.js file
 ```js
 import { reactive, watch } from '@vue/composition-api';
 const API_KEY = '######';
